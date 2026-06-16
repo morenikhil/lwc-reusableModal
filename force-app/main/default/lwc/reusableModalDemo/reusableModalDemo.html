@@ -1,0 +1,110 @@
+<template>
+    <lightning-card title="Reusable Modal Demo" icon-name="utility:popup">
+        <div class="slds-p-around_medium">
+
+            <!-- Trigger buttons for each size variant -->
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                    <lightning-button
+                        label="Open Small Modal"
+                        variant="brand-outline"
+                        data-size="small"
+                        onclick={handleOpenModal}
+                    ></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                    <lightning-button
+                        label="Open Medium Modal (Default)"
+                        variant="brand"
+                        data-size="medium"
+                        onclick={handleOpenModal}
+                    ></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                    <lightning-button
+                        label="Open Large Modal"
+                        variant="brand-outline"
+                        data-size="large"
+                        onclick={handleOpenModal}
+                    ></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-m-bottom_small">
+                    <lightning-button
+                        label="Open Full Modal"
+                        variant="brand-outline"
+                        data-size="full"
+                        onclick={handleOpenModal}
+                    ></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-m-bottom_small">
+                    <lightning-button
+                        label="Open Modal (Close on Overlay Click)"
+                        variant="success"
+                        data-size="medium"
+                        data-overlay="true"
+                        onclick={handleOpenModal}
+                    ></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning-button
+                        label="Open Modal (Custom Footer Slot)"
+                        variant="neutral"
+                        data-size="medium"
+                        data-custom="true"
+                        onclick={handleOpenModal}
+                    ></lightning-button>
+                </div>
+            </div>
+
+            <!-- Last action log -->
+            <template if:true={lastAction}>
+                <div class="slds-m-top_medium slds-notify slds-notify_alert slds-theme_info" role="alert">
+                    <span class="slds-assistive-text">info</span>
+                    Last action: <strong>{lastAction}</strong>
+                </div>
+            </template>
+
+        </div>
+    </lightning-card>
+
+    <!-- ── Standard modal (default footer) ─────────────────────────── -->
+    <c-reusable-modal
+        is-open={isOpen}
+        title={activeTitle}
+        size={activeSize}
+        confirm-label="Save"
+        cancel-label="Discard"
+        close-on-overlay-click={isOverlayClose}
+        onclose={handleClose}
+        onconfirm={handleConfirm}
+    >
+        <span slot="body">
+            <p>This is the <strong>{activeSize}</strong> modal variant.</p>
+            <p class="slds-m-top_small">
+                Close on overlay click: <strong>{isOverlayClose}</strong>
+            </p>
+            <p class="slds-m-top_small slds-text-color_weak">
+                Press <kbd>ESC</kbd> to dismiss at any time.
+            </p>
+        </span>
+    </c-reusable-modal>
+
+    <!-- ── Custom footer slot modal ─────────────────────────────────── -->
+    <c-reusable-modal
+        is-open={isCustomOpen}
+        size="medium"
+        onclose={handleCustomClose}
+        onconfirm={handleConfirm}
+    >
+        <span slot="header">Custom Header Slot</span>
+        <span slot="body">
+            <p>This modal uses <strong>all three slots</strong> — header, body, and footer.</p>
+            <lightning-input label="Your Name" placeholder="Enter your name"></lightning-input>
+        </span>
+        <span slot="footer">
+            <lightning-button label="Maybe Later" variant="neutral" onclick={handleCustomClose}></lightning-button>
+            <lightning-button label="Delete" variant="destructive" class="slds-m-left_x-small" onclick={handleCustomClose}></lightning-button>
+            <lightning-button label="Submit" variant="brand" class="slds-m-left_x-small" onclick={handleCustomClose}></lightning-button>
+        </span>
+    </c-reusable-modal>
+</template>
