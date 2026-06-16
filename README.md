@@ -4,6 +4,9 @@ Reusable Salesforce Lightning Web Component modal with a demo component for quic
 
 This project is configured to run with Salesforce CLI only.
 
+<img width="4100" height="3100" alt="ReusableModal-Architecture" src="https://github.com/user-attachments/assets/9a343a82-6557-41c7-8167-29dd9781326a" />
+
+
 ## Run This Project (Sandbox)
 
 Use this workflow if you are deploying to an existing Salesforce Sandbox.
